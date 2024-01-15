@@ -1,2 +1,6 @@
-Create database: demo-app
-username: root
+#### Create DB:
+demo-app
+### login
+/student/login.php
+### register
+/student/register.php
