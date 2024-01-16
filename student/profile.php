@@ -1,6 +1,7 @@
 <?php
 include_once('../config/connect.php');
-if (!checkLoginStudent()) {
+global $studentKey;
+if (!checkLogin($studentKey)) {
     die('Bạn không có quyền, vui lòng đăng nhập');
 }
 ?>

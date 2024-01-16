@@ -14,6 +14,7 @@ include('../config/connect.php');
 session_start();
 
 if (isset($_POST['sbm'])) {
+    print_r(getDetailStudent('student@gmail.com'));
     $email = $_POST['email'];
     $password = $_POST['password'];
     $error = login($email, $password);
