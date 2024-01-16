@@ -1,4 +1,5 @@
 <?php
+
 $conn = mysqli_connect("localhost", "root", "", "demo-php");
 mysqli_query($conn, "SET NAMES 'utf8'");
 /** Login
@@ -94,4 +95,21 @@ function updateStudent($email, $fullName, $dateOfBirth, $gender, $marriage, $sch
                     WHERE email = '$email'";
     mysqli_query($conn, $sql);
     return '<div class="alert alert-success" >Đăng ký thành công!</div>';
+}
+
+/**
+ * Function verify account by admins
+ *
+ * @param $id
+ *
+ * @return string
+ */
+function verifyAccount($id): string
+{
+    global $conn;
+    $sql = "UPDATE students SET
+                    status = 1
+                    WHERE id = '$id'";
+    mysqli_query($conn, $sql);
+    return '<div class="alert alert-success" >Xác thực tài khoản thành công!</div>';
 }
