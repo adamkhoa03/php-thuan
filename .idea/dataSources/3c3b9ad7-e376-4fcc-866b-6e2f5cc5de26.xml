@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="demo-php@localhost">
-  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.49">
+  <database-model serializer="dbm" dbms="MARIADB" family-id="MARIADB" format-version="4.43">
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1142,8 +1142,6 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     </collation>
     <schema id="324" parent="1" name="demo-php">
       <Current>1</Current>
-      <IntrospectionTimestamp>2024-01-16.07:04:20</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2024-01-15.17:04:20</LocalIntrospectionTimestamp>
       <CollationName>utf8_unicode_ci</CollationName>
     </schema>
     <schema id="325" parent="1" name="information_schema">
@@ -1164,94 +1162,17 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     <schema id="330" parent="1" name="test">
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>
-    <schema id="331" parent="1" name="vietpro_mobile_shop">
-      <CollationName>utf8_unicode_ci</CollationName>
-    </schema>
-    <user id="332" parent="1" name="pma">
+    <user id="331" parent="1" name="pma">
       <Host>localhost</Host>
     </user>
-    <user id="333" parent="1" name="root">
+    <user id="332" parent="1" name="root">
       <Host>127.0.0.1</Host>
     </user>
-    <user id="334" parent="1" name="root">
+    <user id="333" parent="1" name="root">
       <Host>::1</Host>
     </user>
-    <user id="335" parent="1" name="root">
+    <user id="334" parent="1" name="root">
       <Host>localhost</Host>
     </user>
-    <table id="336" parent="324" name="students">
-      <Engine>InnoDB</Engine>
-      <CollationName>utf8_unicode_ci</CollationName>
-    </table>
-    <column id="337" parent="336" name="id">
-      <DasType>int(11)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>1</Position>
-    </column>
-    <column id="338" parent="336" name="full_name">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="339" parent="336" name="birthday">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="340" parent="336" name="gender">
-      <DasType>smallint(6)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="341" parent="336" name="marriage">
-      <DasType>smallint(6)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="342" parent="336" name="school">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <column id="343" parent="336" name="cert">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>7</Position>
-    </column>
-    <column id="344" parent="336" name="avatar">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>8</Position>
-    </column>
-    <column id="345" parent="336" name="cv">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>9</Position>
-    </column>
-    <column id="346" parent="336" name="email">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>10</Position>
-    </column>
-    <column id="347" parent="336" name="password">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>11</Position>
-    </column>
-    <column id="348" parent="336" name="status">
-      <DasType>char(255)|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>12</Position>
-    </column>
-    <index id="349" parent="336" name="PRIMARY">
-      <ColNames>id</ColNames>
-      <Type>btree</Type>
-      <Unique>1</Unique>
-    </index>
-    <key id="350" parent="336" name="PRIMARY">
-      <NameSurrogate>1</NameSurrogate>
-      <Primary>1</Primary>
-      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
-    </key>
   </database-model>
 </dataSource>

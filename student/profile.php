@@ -1,3 +1,10 @@
+<?php
+include_once('../config/connect.php');
+if (!checkLoginStudent()) {
+    die('Bạn không có quyền, vui lòng đăng nhập');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +17,8 @@
 <body>
 <div>
     <h3>Sinh viên điền thông tin cá nhân</h3>
-    <?php if (isset($messenger)) {
+    <?php
+    if (isset($messenger)) {
         echo $messenger;
     } ?>
 </div>
@@ -44,13 +52,14 @@
         <input class="form-control" type="text" id="school" name="school" required><br>
 
         <label for="certification">Chứng Chỉ (Ảnh hoặc PDF):</label>
-        <input class="form-control" type="file" id="certification" name="certification" accept=".jpg, .jpeg, .png, .pdf" ><br>
+        <input class="form-control" type="file" id="certification" name="certification"
+               accept=".jpg, .jpeg, .png, .pdf"><br>
 
         <label for="avatar">Ảnh Đại Diện:</label>
-        <input class="form-control" type="file" id="avatar" name="avatar" accept=".jpg, .jpeg, .png" ><br>
+        <input class="form-control" type="file" id="avatar" name="avatar" accept=".jpg, .jpeg, .png"><br>
 
         <label for="cv">CV (PDF):</label>
-        <input class="form-control" type="file" id="cv" name="cv" accept=".pdf" ><br>
+        <input class="form-control" type="file" id="cv" name="cv" accept=".pdf"><br>
 
         <button type="submit" name="sbm">Gửi</button>
     </form>
@@ -60,6 +69,7 @@
 
 <?php
 include_once('../config/connect.php');
+include_once('./upload.php');
 
 if (isset($_POST['sbm'])) {
     $email = $_COOKIE['email'];
@@ -69,8 +79,8 @@ if (isset($_POST['sbm'])) {
     $gender = $_POST['gender'];
     $marital = $_POST['marital'];
     $school = $_POST['school'];
-    $certification = null;
-    $avatar = null;
-    $cv = null;
+    $certification = getFileUpload('certification');
+    $avatar = getFileUpload('avatar');
+    $cv = getFileUpload('cv');
     $messenger = updateStudent($email, $name, $birthDay, $gender, $marital, $school, $certification, $avatar, $cv);
 }

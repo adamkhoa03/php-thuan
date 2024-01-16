@@ -2,8 +2,10 @@
 $conn = mysqli_connect("localhost", "root", "", "demo-php");
 mysqli_query($conn, "SET NAMES 'utf8'");
 /** Login
+ *
  * @param $email
  * @param $password
+ *
  * @return string|null
  */
 function login($email, $password): ?string
@@ -19,10 +21,22 @@ function login($email, $password): ?string
     return $error;
 }
 
+/**
+ * Check login student
+ *
+ * @return bool
+ */
+function checkLoginStudent(): bool
+{
+    return isset($_COOKIE['email']);
+}
+
 /** Register new student
+ *
  * @param $fullName
  * @param $email
  * @param $password
+ *
  * @return string
  */
 function register($fullName, $email, $password): string
@@ -52,6 +66,7 @@ function register($fullName, $email, $password): string
 }
 
 /** Update student by email
+ *
  * @param $email
  * @param $fullName
  * @param $dateOfBirth
@@ -61,6 +76,7 @@ function register($fullName, $email, $password): string
  * @param $cert
  * @param $avatar
  * @param $cv
+ *
  * @return string
  */
 function updateStudent($email, $fullName, $dateOfBirth, $gender, $marriage, $school, $cert, $avatar, $cv): string
