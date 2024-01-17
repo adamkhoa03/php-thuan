@@ -2,7 +2,6 @@
 
 $conn = mysqli_connect("localhost", "root", "", "demo-php");
 mysqli_query($conn, "SET NAMES 'utf8'");
-$studentKey = 'student';
 $adminKey = 'admin';
 /** Login
  *
@@ -17,8 +16,10 @@ function login($email, $password): ?string
     global $studentKey;
     $error = null;
     $sql = "SELECT * FROM students WHERE email = '$email' && password = '$password'";
+    $result = mysqli_fetch_array(mysqli_query($conn, $sql));
+
     if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
-        setcookie($studentKey, $email);
+        setcookie('user_id', $result['id']);
     } else {
         $error = '<div class="alert alert-danger">Email hoặc mật khẩu không chính xác!</div>';
     }
@@ -78,7 +79,6 @@ function register($fullName, $email, $password): string
  * @param $fullName
  * @param $dateOfBirth
  * @param $gender
- * @param $marriage
  * @param $school
  * @param $cert
  * @param $avatar
@@ -86,20 +86,28 @@ function register($fullName, $email, $password): string
  *
  * @return string
  */
-function updateStudent($email, $fullName, $dateOfBirth, $gender, $marriage, $school, $cert, $avatar, $cv): string
+function updateStudent($email, $fullName, $phone, $description, $address, $dateOfBirth, $gender, $school, $cert, $avatar, $cv): string
 {
     global $conn;
+    $user_id = $_COOKIE['user_id'];
     $sql = "UPDATE students SET
+                    email = '$email',
                     full_name = '$fullName',
+                    phone = '$phone',
+                    description = '$description',
+                    address = '$address',
                     birthday = '$dateOfBirth',
                     gender = '$gender',
-                    marriage = '$marriage',
                     school = '$school',
                     cert='$cert',
                     avatar='$avatar',
                     cv='$cv'
-                    WHERE email = '$email'";
-    mysqli_query($conn, $sql);
+                    WHERE id = '$user_id'";
+    try {
+        mysqli_query($conn, $sql);
+    } catch (Exception $e) {
+        var_dump($e->getMessage());
+    }
     return '<div class="alert alert-success" >Đăng ký thành công!</div>';
 }
 
@@ -212,4 +220,12 @@ function getListStudents(): bool|array|null
 function logout($key): bool
 {
     return setcookie($key, null);
+}
+
+function getUserById($id): bool|array|null
+{
+    global $conn;
+    $sql = "SELECT * FROM students Where id = $id";
+    $result = mysqli_query($conn, $sql);
+    return mysqli_fetch_array($result);
 }

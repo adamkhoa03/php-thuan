@@ -73,7 +73,7 @@ include_once('../config/connect.php');
 include_once('./upload.php');
 
 if (isset($_POST['sbm'])) {
-    $email = $_COOKIE['email'];
+    $email = $_POST['email'];
     $name = $_POST['name'];
     $address = $_POST['address'];
     $birthDay = $_POST['dob'];
