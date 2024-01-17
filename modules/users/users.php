@@ -1,4 +1,8 @@
 <?php
+if (!isset($_COOKIE['user_id'])) {
+    echo 'Bạn chưa đăng nhập';
+    die;
+}
 include_once('./config/connect.php');
 include_once('./modules/upload.php');
 

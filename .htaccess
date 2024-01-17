@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /php-thuan/
+
+    # Kiểm tra xem đường dẫn bắt đầu bằng /abc/
+    RewriteCond %{REQUEST_URI} ^/php-thuan/
+
+    # Chuyển hướng đến /abc/index.php và ẩn đường dẫn
+    RewriteRule ^php-thuan/(.*)$ /php-thuan/index.php [L]
+</IfModule>

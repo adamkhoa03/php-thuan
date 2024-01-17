@@ -44,7 +44,7 @@
                             <!-- /.navbar-collapse -->
                             <div class="user"><a href="/php-thuan/index.php?page=users"><img src="images/user-icon.png" alt=""></a></div>
                             <?php
-                            if ($_SESSION['isLogin'] == true) {
+                            if (isset($_COOKIE['user_id'])) {
                                 echo '<div class="login pull-right hidden-xs"> <a href="/php-thuan/index.php?page=logout">Đăng xuất</a></div>';
                             } else {
                                 echo '<div class="login pull-right hidden-xs"> <a href="/php-thuan/index.php?page=login">Đăng nhập</a></div>';
