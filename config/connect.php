@@ -116,12 +116,12 @@ function updateStudent($email, $fullName, $phone, $description, $address, $dateO
  *
  * @return bool|array|null
  */
-function getListJob(): bool|array|null
+function getListJob()
 {
     global $conn;
     $sql = "SELECT * FROM job";
     $result = mysqli_query($conn, $sql);
-    return mysqli_fetch_array($result);
+    return mysqli_fetch_assoc($result);
 }
 
 /**

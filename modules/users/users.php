@@ -1,6 +1,6 @@
 <?php
-if (!isset($_COOKIE['user_id'])) {
-    echo 'Bạn chưa đăng nhập';
+if (!isset($_SESSION['isLogin'])) {
+    header('location: index.php?page=404');
     die;
 }
 include_once('./config/connect.php');

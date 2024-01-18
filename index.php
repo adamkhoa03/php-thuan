@@ -57,6 +57,15 @@ include_once('./config/connect.php');
             case 'users':
                 include_once('modules/users/users.php');
                 break;
+            case 'listjob':
+                include_once('modules/listjob/listjob.php');
+                break;
+            case 'apply':
+                include_once('modules/applyCv/applyCv.php');
+                break;
+            case '404':
+                include_once('modules/404/404.php');
+                break;
         }
     } else {
         include_once('modules/home/bannerWrapper/bannerWrapper.php');
