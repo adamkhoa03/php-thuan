@@ -10,16 +10,16 @@ $adminKey = 'admin';
  *
  * @return string|null
  */
-function login($email, $password): ?string
+function login($taikhoan, $matkhau): ?string
 {
     global $conn;
-    global $studentKey;
     $error = null;
-    $sql = "SELECT * FROM students WHERE email = '$email' && password = '$password'";
+    $sql = "SELECT * FROM taikhoannguoiungtuyen WHERE taikhoan = '$taikhoan' && matkhau = '$matkhau'";
     $result = mysqli_fetch_array(mysqli_query($conn, $sql));
 
     if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
-        setcookie('user_id', $result['id']);
+        $_SESSION['user_id'] = $result['id'];
+        $_SESSION['isLogin'] = true;
     } else {
         $error = '<div class="alert alert-danger">Email hoặc mật khẩu không chính xác!</div>';
     }
@@ -37,37 +37,60 @@ function checkLogin($key): bool
     return isset($_COOKIE[$key]);
 }
 
-/** Register new student
+
+function checkAccountRigister() {
+    global $conn;
+    $uid = $_SESSION['user_id'];
+    $sql = "SELECT * FROM thongtinrieng WHERE idnguoidungtuyen = '$uid'";
+    $query = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($query) < 1) {
+        $addInformationAccount = "INSERT INTO thongtinrieng(
+            idnguoidungtuyen
+        	)
+        	VALUES(
+        	    '$uid'
+        	)";
+        mysqli_query($conn, $addInformationAccount);
+    }
+}
+
+/** Register new taikhoannguoiungtuyen
  *
- * @param $fullName
- * @param $email
- * @param $password
+ * @param $taikhoan
+ * @param $matkhau
+ * @param $trangthai
  *
  * @return string
  */
-function register($fullName, $email, $password): string
+function register($taikhoan, $matkhau): string
 {
     global $conn;
     $messenger = null;
-    $_SESSION['student']['mail'] = $email;
-    $sql = "SELECT * FROM students WHERE email = '$email'";
+    $sql = "SELECT * FROM taikhoannguoiungtuyen WHERE taikhoan = '$taikhoan'";
     $query = mysqli_query($conn, $sql);
     if (mysqli_num_rows($query) >= 1) {
-        $messenger = '<div class="alert alert-danger" >Email đã tồn tại!</div>';
+        $messenger = '<div class="alert alert-danger" >Tài khoản đã tồn tại!</div>';
     } else {
-        $sql = "INSERT INTO students(
-				full_name,
-				email,
-				password,
-                status
+        $sql = "INSERT INTO taikhoannguoiungtuyen(
+				taikhoan,
+				matkhau,
+                trangthai
 			)
 			VALUES(
-				'$fullName',
-				'$email',
-				'$password',
+				'$taikhoan',
+				'$matkhau',
 			     0
 			)";
         mysqli_query($conn, $sql);
+
+        // $uid = $_SESSION['user_id'];
+        // $addInformationAccount = "INSERT INTO idnguoidungtuyen(
+        //     idnguoidungtuyen
+		// 	)
+		// 	VALUES(
+		// 	    '$uid'
+		// 	)";
+        // mysqli_query($conn, $addInformationAccount);
         $messenger = '<div class="alert alert-success" >Đăng ký thành công!</div>';
     }
     return $messenger;
@@ -86,23 +109,22 @@ function register($fullName, $email, $password): string
  *
  * @return string
  */
-function updateStudent($email, $fullName, $phone, $description, $address, $dateOfBirth, $gender, $school, $cert, $avatar, $cv): string
+function updateStudent($hoten, $sodienthoai, $thongtinthem, $diachi, $ngaysinh, $gioitinh, $chuyennganh, $chungchi, $anhdaidien, $hoso): string
 {
     global $conn;
-    $user_id = $_COOKIE['user_id'];
-    $sql = "UPDATE students SET
-                    email = '$email',
-                    full_name = '$fullName',
-                    phone = '$phone',
-                    description = '$description',
-                    address = '$address',
-                    birthday = '$dateOfBirth',
-                    gender = '$gender',
-                    school = '$school',
-                    cert='$cert',
-                    avatar='$avatar',
-                    cv='$cv'
-                    WHERE id = '$user_id'";
+    $user_id = $_SESSION['user_id'];
+    $sql = "UPDATE thongtinrieng SET
+                    hoten = '$hoten',
+                    sodienthoai = '$sodienthoai',
+                    thongtinthem = '$thongtinthem',
+                    diachi = '$diachi',
+                    ngaysinh = '$ngaysinh',
+                    gioitinh = '$gioitinh',
+                    chuyennganh = '$chuyennganh',
+                    chungchi='$chungchi',
+                    anhdaidien='$anhdaidien',
+                    hoso='$hoso'
+                    WHERE idnguoidungtuyen = '$user_id'";
     try {
         mysqli_query($conn, $sql);
     } catch (Exception $e) {
@@ -134,8 +156,8 @@ function getListJob()
 function applyJob($jobID, $userId): mysqli_result|bool
 {
     global $conn;
-    $sql = "UPDATE students SET
-                    job = '$jobID'
+    $sql = "UPDATE thongtinrieng SET
+                    congviecdaungtuyen = '$jobID'
                     WHERE id = '$userId'";
     return mysqli_query($conn, $sql);
 }
@@ -190,9 +212,14 @@ function adminLogin($email, $password): ?string
 function verifyAccount($id): string
 {
     global $conn;
-    $sql = "UPDATE students SET
-                    status = 1
-                    WHERE id = '$id'";
+    $sql = "SELECT * FROM thongtinrieng Where id = $id";
+    $result = mysqli_query($conn, $sql);
+    $resultSql =  mysqli_fetch_array($result);
+    $result2 = $resultSql['idnguoidungtuyen'];
+
+    $sql = "UPDATE thongtinrieng SET
+                    trangthai = 1
+                    WHERE idnguoidungtuyen = '$result2'";
     mysqli_query($conn, $sql);
     return '<div class="alert alert-success" >Xác thực tài khoản thành công!</div>';
 }
@@ -225,7 +252,7 @@ function logout($key): bool
 function getUserById($id): bool|array|null
 {
     global $conn;
-    $sql = "SELECT * FROM students Where id = $id";
+    $sql = "SELECT * FROM thongtinrieng Where idnguoidungtuyen = $id";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_array($result);
 }

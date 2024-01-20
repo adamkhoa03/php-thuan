@@ -31,19 +31,10 @@ $query = mysqli_query($conn, $sql);
                 <div class="our-location color1"> <span class="fa fa-calendar" aria-hidden="true"></span>
                     <div class="location-content">
                         <h3><?php echo $job['date']; ?></h3>
-                        <a href="/php-thuan/index.php?page=apply&cv=<?php echo $job['id']; ?>">Ứng tuyển ngay</a>
+                        <a href="/php-thuan/index.php?page=apply&cv=<?php echo $job['id']; ?>&job=<?php echo $job['title']; ?>">Ứng tuyển ngay</a>
                     </div>
                 </div>
             </div>
         <?php } ?>
-        <!-- <ul class="pagination">
-            <li><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li class="active"><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-        </ul> -->
     </div>
 </div>

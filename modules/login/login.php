@@ -1,21 +1,23 @@
 <?php
+if (isset($_SESSION['isLogin'])) {
+    header('location: index.php?page=404');
+    die;
+}
 include_once('./config/connect.php');
 // session_start();
 if (isset($_POST['sbm'])) {
-    $fullName = $_POST['fullName'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $messenger = register($fullName, $email, $password);
+    $email = $_POST['taikhoan'];
+    $password = $_POST['matkhau'];
+    $messenger = register($email, $password);
 }
 if (isset($_POST['sbm_login'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['taikhoan'];
+    $password = $_POST['matkhau'];
     $error = login($email, $password);
 
     if (!$error) {
         $_SESSION['isLogin'] = true;
         header('location: index.php');
-        
     }
 }
 ?>
@@ -58,12 +60,12 @@ if (isset($_POST['sbm_login'])) {
 
                         <form method="post">
                             <div class="form-group">
-                                <label>Email: <span class="required">*</span></label>
-                                <input placeholder="" class="form-control" type="email" name="email">
+                                <label>Tài khoản: <span class="required">*</span></label>
+                                <input placeholder="" class="form-control" type="text" name="taikhoan">
                             </div>
                             <div class="form-group">
-                                <label>Password: <span class="required">*</span></label>
-                                <input placeholder="" class="form-control" type="password" name="password">
+                                <label>Mật khẩu: <span class="required">*</span></label>
+                                <input placeholder="" class="form-control" type="password" name="matkhau">
                             </div>
                             <div class="loginbox-forgot"> <a href="">Quên mật khẩu?</a> </div>
                             <div class="loginbox-submit">
@@ -79,16 +81,12 @@ if (isset($_POST['sbm_login'])) {
                     <div class="loginbox">
                         <form method="post">
                             <div class="form-group">
-                                <label>Tên tài khoản: <span class="required">*</span></label>
-                                <input placeholder="" class="form-control" type="text" name="fullName">
-                            </div>
-                            <div class="form-group">
-                                <label>Email: <span class="required">*</span></label>
-                                <input placeholder="" class="form-control" type="email" name="email">
+                                <label>Tài khoản: <span class="required">*</span></label>
+                                <input placeholder="" class="form-control" type="text" name="taikhoan">
                             </div>
                             <div class="form-group">
                                 <label>Mật khẩu: <span class="required">*</span></label>
-                                <input placeholder="" class="form-control" type="password" name="password">
+                                <input placeholder="" class="form-control" type="password" name="matkhau">
                             </div>
                             <div class="loginbox-forgot">
                                 <input type="checkbox" checked>

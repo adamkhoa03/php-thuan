@@ -16,13 +16,25 @@ $query = mysqli_query($conn, $sql);
         while ($job = mysqli_fetch_array($query)) { ?>
             <div class="single-jobs"> <i class="fa fa-twitter"></i>
                 <div class="job-heading">
-                    <h3><?php echo $job['title']; ?></h3>
-                    <p><?php echo $job['subtitle']; ?></p>
+                    <a href="<?php if (isset($_SESSION['user_id'])) {
+                                    echo '/php-thuan/index.php?page=apply&cv=' . $job['id'];
+                                } else {
+                                    echo '/php-thuan/index.php?page=login';
+                                } ?>">
+                        <h3 style="
+    text-align: justify;
+"><?php echo $job['title']; ?></h3>
+                    </a>
+
+                    <p style="
+    text-align: justify;
+"><?php echo $job['subtitle']; ?></p>
                 </div>
                 <div class="our-location color1"> <span class="fa fa-map-marker" aria-hidden="true"></span>
                     <div class="location-content">
                         <h3><?php echo $job['address']; ?></h3>
                         <span><?php echo $job['location']; ?></span>
+                        <span style="background: yellowgreen;"><?php echo $job['level']; ?></span>
                     </div>
                 </div>
             </div>

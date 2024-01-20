@@ -4,10 +4,10 @@
         die;
     }
     include_once('../config/connect.php');
-    $sql = "SELECT * FROM students";
+    $sql = "SELECT * FROM thongtinrieng";
     $query = mysqli_query($conn, $sql);
 
-    if ($_GET['userid']) {
+    if (isset($_GET['userid'])) {
         $message = verifyAccount($_GET['userid']);
     }
     ?>
@@ -40,7 +40,6 @@
 	                            <tr>
 	                                <th data-field="id" data-sortable="true">ID</th>
 	                                <th data-field="name" data-sortable="true">Họ & Tên</th>
-	                                <th data-field="price" data-sortable="true">Email</th>
 	                                <th>Quyền</th>
 	                                <th>Hành động</th>
 	                            </tr>
@@ -50,22 +49,21 @@
                                 while ($user = mysqli_fetch_array($query)) { ?>
 	                                <tr>
 	                                    <td style=""><?php echo $user['id']; ?></td>
-	                                    <td style=""><?php echo $user['full_name']; ?></td>
-	                                    <td style=""><?php echo $user['email']; ?></td>
-	                                    <td><span class="label label-<?php if ($user['status'] == 0) {
+	                                    <td style=""><?php echo $user['hoten']; ?></td>
+	                                    <td><span class="label label-<?php if ($user['trangthai'] == 0) {
                                                                             echo "danger";
                                                                         } else {
                                                                             echo 'success';
-                                                                        } ?>"><?php if ($user['status'] == 0) {
+                                                                        } ?>"><?php if ($user['trangthai'] == 0) {
                                                                                     echo "Chưa actice";
                                                                                 } else {
                                                                                     echo 'Đã actice';
                                                                                 } ?></span></td>
 	                                    <td class="form-group">
-	                                        <?php if ($user['status'] == 0) { ?>
+	                                        <?php if ($user['trangthai'] == 0) { ?>
 	                                            <a href="index.php?page=users&userid=<?php echo $user['id'] ?>" class="btn btn-primary"><i class="glyphicon glyphicon-pencil"></i></a>
 	                                        <?php } ?>
-	                                        <!-- <?php if ($user['status'] == 1) { ?>
+	                                        <!-- <?php if ($user['trangthai'] == 1) { ?>
 	                                            <a href="/" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
 	                                        <?php } ?> -->
 
