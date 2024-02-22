@@ -1,13 +1,13 @@
 <?php
 include_once('./config/connect.php');
-$sql = "SELECT * FROM job";
+$sql = "SELECT * FROM level";
 $query = mysqli_query($conn, $sql);
 ?>
 <!-- Latest jobs Wrapper Start -->
 <div class="latest-jobs-wrapper">
     <div class="container">
         <div class="title">
-            <h2>Việc làm<span> mới nhất</span></h2>
+            <h2>Việc làm<span> theo Level</span></h2>
             <h3>Ở đây bạn có thể thấy</h3>
         </div>
     </div>
@@ -23,18 +23,18 @@ $query = mysqli_query($conn, $sql);
                                 } ?>">
                         <h3 style="
     text-align: justify;
-"><?php echo $job['title']; ?></h3>
+"><?php echo $job['name']; ?></h3>
                     </a>
 
                     <p style="
     text-align: justify;
-"><?php echo $job['subtitle']; ?></p>
+"></p>
                 </div>
-                <div class="our-location color1"> <span class="fa fa-map-marker" aria-hidden="true"></span>
+                <div class="our-location color1"> 
                     <div class="location-content">
-                        <h3><?php echo $job['address']; ?></h3>
-                        <span><?php echo $job['location']; ?></span>
-                        <span style="background: yellowgreen;"><?php echo $job['level']; ?></span>
+                        <!-- <h3><?php echo $job['name']; ?></h3> -->
+                        <!-- <span><?php echo $job['name']; ?></span> -->
+                        <a href="/php-thuan/index.php?page=listjob&job=<?php echo $job['id']; ?>"><span style="background: yellowgreen;">Xem thêm</span></a>
                     </div>
                 </div>
             </div>

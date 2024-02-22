@@ -1,6 +1,15 @@
 <?php
 include_once('./config/connect.php');
-$sql = "SELECT * FROM job";
+if (isset($_GET['job'])) {
+    $jobId = $_GET['job'];
+    $sql = "SELECT congviec.*
+    FROM congviec
+    JOIN level ON congviec.id_level = level.id
+    WHERE level.id = " . $jobId . ";";
+} else {
+    $sql = "SELECT * FROM congviec";
+}
+
 $query = mysqli_query($conn, $sql);
 ?>
 <!-- breadcrumb Wrapper Start -->

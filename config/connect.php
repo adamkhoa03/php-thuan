@@ -1,6 +1,6 @@
 <?php
 
-$conn = mysqli_connect("localhost", "root", "", "demo-php");
+$conn = mysqli_connect("localhost", "root", "", "ketnoi");
 mysqli_query($conn, "SET NAMES 'utf8'");
 $adminKey = 'admin';
 /** Login
@@ -14,7 +14,7 @@ function login($taikhoan, $matkhau): ?string
 {
     global $conn;
     $error = null;
-    $sql = "SELECT * FROM taikhoannguoiungtuyen WHERE taikhoan = '$taikhoan' && matkhau = '$matkhau'";
+    $sql = "SELECT * FROM taikhoan WHERE taikhoan = '$taikhoan' && matkhau = '$matkhau'";
     $result = mysqli_fetch_array(mysqli_query($conn, $sql));
 
     if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
@@ -41,11 +41,11 @@ function checkLogin($key): bool
 function checkAccountRigister() {
     global $conn;
     $uid = $_SESSION['user_id'];
-    $sql = "SELECT * FROM thongtinrieng WHERE idnguoidungtuyen = '$uid'";
+    $sql = "SELECT * FROM thongtinrieng WHERE id = '$uid'";
     $query = mysqli_query($conn, $sql);
     if (mysqli_num_rows($query) < 1) {
         $addInformationAccount = "INSERT INTO thongtinrieng(
-            idnguoidungtuyen
+            id
         	)
         	VALUES(
         	    '$uid'
@@ -54,7 +54,7 @@ function checkAccountRigister() {
     }
 }
 
-/** Register new taikhoannguoiungtuyen
+/** Register new taikhoan
  *
  * @param $taikhoan
  * @param $matkhau
@@ -66,12 +66,12 @@ function register($taikhoan, $matkhau): string
 {
     global $conn;
     $messenger = null;
-    $sql = "SELECT * FROM taikhoannguoiungtuyen WHERE taikhoan = '$taikhoan'";
+    $sql = "SELECT * FROM taikhoan WHERE taikhoan = '$taikhoan'";
     $query = mysqli_query($conn, $sql);
     if (mysqli_num_rows($query) >= 1) {
         $messenger = '<div class="alert alert-danger" >Tài khoản đã tồn tại!</div>';
     } else {
-        $sql = "INSERT INTO taikhoannguoiungtuyen(
+        $sql = "INSERT INTO taikhoan(
 				taikhoan,
 				matkhau,
                 trangthai
@@ -124,7 +124,7 @@ function updateStudent($hoten, $sodienthoai, $thongtinthem, $diachi, $ngaysinh, 
                     chungchi='$chungchi',
                     anhdaidien='$anhdaidien',
                     hoso='$hoso'
-                    WHERE idnguoidungtuyen = '$user_id'";
+                    WHERE id = '$user_id'";
     try {
         mysqli_query($conn, $sql);
     } catch (Exception $e) {
@@ -193,7 +193,7 @@ function adminLogin($email, $password): ?string
     global $conn;
     global $adminKey;
     $error = null;
-    $sql = "SELECT * FROM admins WHERE email = '$email' && password = '$password'";
+    $sql = "SELECT * FROM admin WHERE taikhoan = '$email' && matkhau = '$password'";
     if (mysqli_num_rows(mysqli_query($conn, $sql)) == 1) {
         setcookie($adminKey, $email);
     } else {
@@ -215,11 +215,11 @@ function verifyAccount($id): string
     $sql = "SELECT * FROM thongtinrieng Where id = $id";
     $result = mysqli_query($conn, $sql);
     $resultSql =  mysqli_fetch_array($result);
-    $result2 = $resultSql['idnguoidungtuyen'];
+    $result2 = $resultSql['id'];
 
     $sql = "UPDATE thongtinrieng SET
                     trangthai = 1
-                    WHERE idnguoidungtuyen = '$result2'";
+                    WHERE id = '$result2'";
     mysqli_query($conn, $sql);
     return '<div class="alert alert-success" >Xác thực tài khoản thành công!</div>';
 }
@@ -252,7 +252,7 @@ function logout($key): bool
 function getUserById($id): bool|array|null
 {
     global $conn;
-    $sql = "SELECT * FROM thongtinrieng Where idnguoidungtuyen = $id";
+    $sql = "SELECT * FROM thongtinrieng Where id = $id";
     $result = mysqli_query($conn, $sql);
     return mysqli_fetch_array($result);
 }

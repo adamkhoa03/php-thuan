@@ -7,8 +7,8 @@ include('../config/connect.php');
 session_start();
 
 if (isset($_POST['sbm'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = $_POST['taikhoan'];
+    $password = $_POST['matkhau'];
     $error = adminLogin($email, $password);
 
     if ($error) {
@@ -25,7 +25,7 @@ if (isset($_POST['sbm'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Vietpro Mobile Shop - Administrator</title>
+    <title>Administrator</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/datepicker3.css" rel="stylesheet">
@@ -53,10 +53,10 @@ if (isset($_POST['sbm'])) {
                     <form role="form" method="post">
                         <fieldset>
                             <div class="form-group">
-                                <input class="form-control" placeholder="E-mail" name="email" type="email" autofocus>
+                                <input class="form-control" placeholder="E-mail" name="taikhoan" type="text" autofocus>
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Mật khẩu" name="password" type="password" value="">
+                                <input class="form-control" placeholder="Mật khẩu" name="matkhau" type="password" value="">
                             </div>
                             <div class="checkbox">
                                 <label>
